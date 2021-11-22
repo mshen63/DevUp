@@ -95,8 +95,8 @@ The Projects Page displays all of the projects that the user is contributing to.
  
  Clone the directory and enter the project directory:
  ```bash
- $ git clone https://github.com/LaloVene/MLH-PE-Project.git
- $ cd MLH-PE-Project
+ $ git clone https://github.com/mshen63/DevUp.git
+ $ cd DevUp
  ```
  
  Create and activate virtual environment using virtualenv, under /api
