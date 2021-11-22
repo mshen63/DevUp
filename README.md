@@ -4,6 +4,7 @@
 By Michelle Shen, Eduardo Venegas, and Angela Wang
 
 **Deployment: https://dev-up.tech**
+*** In the process of migrating deployment!***
 
 [![License](https://img.shields.io/github/license/LaloVene/MLH-PE-Project)](https://github.com/LaloVene/MLH-PE-Project/blob/main/LICENSE)
 [![Monitoring](https://img.shields.io/website?url=https%3A%2F%2Fdev-up.tech)](https://dev-up.tech)
