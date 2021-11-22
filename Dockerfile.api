@@ -1,0 +1,13 @@
+# This Dockerfile builds the API only.
+
+FROM python:3.8-slim-buster
+WORKDIR /app
+
+COPY api/requirements.txt ./
+RUN pip install -r ./requirements.txt
+COPY api/api.py api/.flaskenv ./
+
+COPY ./api /app
+
+EXPOSE 5000
+ENTRYPOINT ["./apiEntrypoint.sh"]

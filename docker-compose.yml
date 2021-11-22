@@ -1,0 +1,113 @@
+services:
+  api:
+    container_name: api
+    restart: always
+    ports:
+    - "5000:5000"
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: ghcr.io/lalovene/dev-up-api
+    volumes:
+      - .:/api
+    depends_on:
+      - db
+  
+  db:
+    container_name: db
+    restart: always
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - mydatabase:/var/lib/postgresql/data
+  
+  # Comment out the following line if you don't want to run client
+  client:
+    container_name: client
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    image: ghcr.io/lalovene/dev-up-client
+  
+  nginx-certbot:
+    container_name: nginx-certbot
+    image: jonasal/nginx-certbot:latest
+    restart: unless-stopped
+    environment:
+      - CERTBOT_EMAIL=lalohdez77@gmail.com 
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - nginx_secrets:/etc/letsencrypt
+      - ./user_conf.d:/etc/nginx/user_conf.d
+    depends_on:
+      - client
+      - api
+
+  cadvisor:
+    container_name: cadvisor
+    image: gcr.io/cadvisor/cadvisor:latest
+    ports:
+    - 8080:8080
+    restart: unless-stopped
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys/:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+  
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    restart: unless-stopped
+    ports:
+    - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    depends_on:
+      - cadvisor
+      - node-exporter
+
+  node-exporter:
+    container_name: node-exporter
+    image: prom/node-exporter
+    restart: unless-stopped
+    ports:
+    - 9100:9100
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/rootfs'
+      - '--collector.filesystem.ignored-mount-points="^(/rootfs|/host|)/(sys|proc|dev|host|etc)($$|/)"'
+      - '--collector.filesystem.ignored-fs-types="^(sys|proc|auto|cgroup|devpts|ns|au|fuse\.lxc|mqueue)(fs|)$$"'
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    user: "1000"
+    env_file:
+      - .env
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+volumes:
+  mydatabase:
+  nginx_secrets:
+  grafana_data:
+  prometheus_data:
