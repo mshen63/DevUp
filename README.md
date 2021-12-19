@@ -15,17 +15,6 @@ Ever wanted to work on a project with others but don't know where to get started
 
 Developers can search for projects that they are interested in, and contact the current team members of the project to learn more about them and join their team. Developers that already have an project idea can make a post on DevUp to display it to other project-seeking developers and find new team members.
 
-## 📍 Table of Contents
-- [Technologies Used](https://github.com/LaloVene/MLH-PE-Project#-technologies-used)
-- [Architecture](https://github.com/LaloVene/MLH-PE-Project#-architecture)
-- [CI/CD](https://github.com/LaloVene/MLH-PE-Project#-cicd)
-- [Site Overview](https://github.com/LaloVene/MLH-PE-Project#-site-overview)
-- [Monitoring](https://github.com/LaloVene/MLH-PE-Project#%EF%B8%8F-monitoring)
-- [Installation](https://github.com/LaloVene/MLH-PE-Project#%EF%B8%8F-installation)
-- [Usage](https://github.com/LaloVene/MLH-PE-Project#-usage)
-- [Contributing](https://github.com/LaloVene/MLH-PE-Project#-contributing)
-
-
 ## 💻 Technologies Used
 - Docker
 - React Ionic
@@ -147,6 +136,6 @@ POSTGRES_DB=[db_name]
  - Traffic:       All
  
 ## 📝 Contributing
-Contributions are welcome! Please refer to the [Contributing](https://github.com/LaloVene/MLH-PE-Project/blob/main/CONTRIBUTING.md) guidelines.
+Contributions are welcome! Please refer to the [Contributing](https://github.com/mshen63/DevUp/blob/main/CONTRIBUTING.md) guidelines.
 
 
